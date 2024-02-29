@@ -1,7 +1,7 @@
 function App() {
   return (
     <>
-      <h1>Prozhito archive</h1>
+      <h1>Prozhito utils</h1>
       <div>
         <p>Some text</p>
       </div>
