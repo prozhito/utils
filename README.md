@@ -40,8 +40,7 @@
 ### Deploy:
 
 ```markdown
-gh workflow list
-gh workflow run <workflow-name>
+gh workflow run deploy
 ```
 
-Or using Actions tab via web interface
+Or using Actions tab via web interface.
