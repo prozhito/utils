@@ -1,0 +1,20 @@
+.table__copy,
+.table__images {
+  border: 1px solid var(--color30);
+  word-break: break-all;
+}
+
+.table__images_head {
+  text-align: center;
+  background-color: var(--color20);
+}
+
+.table__copy_body td,
+.table__images_body td {
+  border-top: 1px solid var(--color30);
+}
+
+.table__copy_body td:not(:last-of-type),
+.table__images_body td:not(:last-of-type) {
+  border-right: 1px solid var(--color30);
+}
