@@ -1,6 +1,6 @@
 import React from 'react'
 import { API_URL, API_COPY, API_IMG } from './constants'
-import type { TProcessing, TImage } from './types'
+import type { TCopy, TImage } from './types'
 import { getData } from './get'
 
 type TProcessingState<T> = {
@@ -15,13 +15,13 @@ type TGetProcessingProps = {
 }
 
 export const useGetProcessing = ({ item, page }: TGetProcessingProps) => {
-  const [state, setState] = React.useState<TProcessingState<TProcessing>>({ loading: true })
+  const [state, setState] = React.useState<TProcessingState<TCopy>>({ loading: true })
 
   React.useEffect(() => {
     let url = `${API_URL}${API_COPY}${item ?? ''}`
     if (page !== undefined) url = `${url}?page=${page}`
     console.log('Fetching: ', url)
-    getData<TProcessing>(url).then(response => {
+    getData<TCopy>(url).then(response => {
       setState({ loading: false, ...response })
     })
   }, [item, page])

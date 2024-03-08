@@ -1,9 +1,9 @@
 import { objectKeys } from '~/utils/types'
-import type { TProcessing } from '~/api/types'
+import type { TCopy } from '~/api/types'
 
 import './styles.css'
 
-export function ParseTable(data: TProcessing) {
+export function ParseTable(data: TCopy) {
   return (
     <>
       <h3>Copy</h3>

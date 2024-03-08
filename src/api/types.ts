@@ -1,4 +1,4 @@
-export type TProcessing = {
+export type TCopy = {
   id: number
   item: number
   item_title: string
