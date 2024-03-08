@@ -2,7 +2,7 @@ import { API_URL, API_COPY, API_IMG } from './constants'
 import type { TCopy, TImage } from './types'
 import { getData } from './get'
 
-type TUpdateCallback = ({ data, images }: { data: TCopy | null; images: TImage[] }) => void
+type TUpdateCallback = ({ data, images, error }: { data: TCopy | null; images: TImage[]; error?: string }) => void
 
 class Store {
   private _copy: Record<string, TCopy> = {}
@@ -16,7 +16,7 @@ class Store {
         let url = `${API_URL}${API_COPY}${id ?? ''}`
         if (page !== undefined) url = `${url}?page=${page}`
         // console.log('Fetching copy: ', url)
-        getData<TCopy>(url).then(response => {
+        getData<TCopy>(url, true).then(response => {
           if (response.data) {
             this._copy[id] = response.data
             resolve(this._copy[id])
@@ -71,8 +71,8 @@ class Store {
           })
         }
       })
-      .catch(() => {
-        updateCallback({ data: null, images: [] })
+      .catch(error => {
+        updateCallback({ data: null, images: [], error })
       })
   }
 }

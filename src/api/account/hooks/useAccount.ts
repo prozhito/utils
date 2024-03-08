@@ -17,7 +17,7 @@ export const useAccount = (): TAccount => {
 
   const update = React.useCallback(() => {
     setState(prev => ({ ...prev, ...account.info() }))
-    console.log('account.update.loading:', account.info().loading)
+    // console.log('account.update.loading:', account.info().loading)
   }, [])
 
   React.useEffect(() => {
