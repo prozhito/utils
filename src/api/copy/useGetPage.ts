@@ -21,7 +21,12 @@ export const useGetPage = ({ id, page }: TGetPageProps) => {
     if (id !== undefined) {
       setState({ loading: true })
       store.updatePage({ id, page }, ({ data, images }) => {
-        setState({ loading: false, data, images })
+        setState({
+          loading: false,
+          data: data || undefined,
+          images: images && images.length ? images : undefined,
+          error: !data ? 'No data' : undefined,
+        })
       })
     }
   }, [id, page])

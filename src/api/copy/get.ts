@@ -5,21 +5,24 @@ export const getData = async <T>(url: string): Promise<{ data?: T; error?: strin
       method: 'GET',
     })
       .then(response => {
+        info.status = response.status
         if (response.status !== 200) {
-          info.status = response.status
           info.error = response.statusText
-          const contentType = response.headers.get('content-type')
-          if (contentType && contentType.includes('application/json')) {
-            return response.json()
-          }
+          return { detail: response.statusText }
         }
-        return response.json()
+
+        const contentType = response.headers.get('content-type')
+        if (contentType && contentType.includes('application/json')) {
+          return response.json()
+        }
       })
       .catch(err => {
         info.error = err.message
       })
 
-    if (info.error) return { error: response.detail || info.error }
+    if (info.error) {
+      return { error: response.detail || info.error }
+    }
     return { data: response }
   } catch (error) {
     return { error: error instanceof Error ? error.message : 'unknown' }

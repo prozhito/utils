@@ -2,7 +2,7 @@ import { API_URL, API_COPY, API_IMG } from './constants'
 import type { TCopy, TImage } from './types'
 import { getData } from './get'
 
-type TUpdateCallback = ({ data, images }: { data: TCopy; images: TImage[] }) => void
+type TUpdateCallback = ({ data, images }: { data: TCopy | null; images: TImage[] }) => void
 
 class Store {
   private _copy: Record<string, TCopy> = {}
@@ -29,7 +29,10 @@ class Store {
   getImage({ id }: { id?: number }) {
     return new Promise<TImage>((resolve, reject) => {
       if (id != undefined) {
-        if (this._image[id]) resolve(this._image[id])
+        if (this._image[id]) {
+          resolve(this._image[id])
+          return
+        }
 
         const url = `${API_URL}${API_IMG}${id}`
         // console.log('Fetching image: ', url)
@@ -37,23 +40,40 @@ class Store {
           if (response.data) {
             this._image[id] = response.data
             resolve(this._image[id])
-          } else reject(response.error)
+          } else {
+            this._image[id] = {
+              id,
+              uuid: response.error ?? '',
+              copy: 0,
+              order: 0,
+              original_filename: '',
+              created_at: '',
+              img_250: '',
+              rotation: 0,
+            }
+            reject(response.error)
+          }
         })
       }
     })
   }
 
   updatePage({ id, page = 0 }: { id?: number; page?: number }, updateCallback: TUpdateCallback) {
-    this.getCopy({ id }).then(data => {
-      const items = data.images
-      if (items) {
-        const ids = items.slice(page * 10, page * 10 + 10)
-        const arr = ids.map(id => this.getImage({ id }))
-        Promise.all(arr).then(images => {
-          updateCallback({ data, images })
-        })
-      }
-    })
+    this.getCopy({ id })
+      .then(data => {
+        const items = data.images
+        if (items) {
+          const ids = items.slice(page * 10, page * 10 + 10)
+          const arr = ids.map(id => this.getImage({ id }))
+          Promise.allSettled(arr).finally(() => {
+            const images = ids.map(id => this._image[id])
+            updateCallback({ data, images })
+          })
+        }
+      })
+      .catch(() => {
+        updateCallback({ data: null, images: [] })
+      })
   }
 }
 
