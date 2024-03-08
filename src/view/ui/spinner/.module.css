@@ -1,0 +1,20 @@
+.spinner26 {
+  display: inline-block;
+  fill: none;
+  border-radius: 50%;
+  animation: rotate-keyframes 1s linear infinite;
+}
+.spinner26 path {
+  stroke: var(--color80);
+  stroke-width: 4px;
+}
+.spinner26 circle {
+  stroke: var(--color80);
+  stroke-width: 4px;
+  opacity: 0.5;
+}
+@keyframes rotate-keyframes {
+  100% {
+    transform: rotate(360deg);
+  }
+}

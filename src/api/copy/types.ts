@@ -23,4 +23,5 @@ export type TImage = {
   original_filename: string
   created_at: string
   img_250: string
+  rotation: number
 }

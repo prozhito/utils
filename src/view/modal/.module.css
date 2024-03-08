@@ -1,0 +1,69 @@
+.modal__outer {
+  z-index: 900;
+  position: fixed;
+  width: 100dvw;
+  height: 100dvh;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal__outer_hidden {
+  display: none;
+}
+
+.modal__inner {
+  position: relative;
+  background-color: var(--color15, #fff);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.75rem;
+  width: 100%;
+  max-width: 22rem;
+  padding: 1rem 2rem;
+  row-gap: 1rem;
+  font-size: 1rem;
+}
+
+.modal__close {
+  position: absolute;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  right: 0.75rem;
+  top: 0.75rem;
+  cursor: pointer;
+  transition: opacity 0.25s linear;
+}
+.modal__close:hover {
+  opacity: 0.6;
+}
+.modal__close svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.form__login {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.form__login p {
+  margin-left: 1rem;
+}
+.form__login_buttons {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.user__info_container {
+  width: 100%;
+}

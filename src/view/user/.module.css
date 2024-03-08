@@ -1,0 +1,17 @@
+.user__menu {
+  width: 26px;
+  min-width: 26px;
+  height: 26px;
+  margin-left: 1rem;
+  cursor: pointer;
+  color: var(--color100);
+  background-color: var(--color20);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.25s linear;
+}
+.user__menu:hover {
+  opacity: 0.65;
+}

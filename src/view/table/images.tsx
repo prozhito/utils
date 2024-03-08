@@ -1,9 +1,7 @@
-// import React from 'react'
-// import { objectKeys } from '~/utils/types'
-import type { TImage } from '~/api/types'
+import type { TImage } from '~/api/copy/types'
 
 export function ParseImages(data: TImage[]) {
-  const headers = ['img_250', 'id', 'uuid', 'copy', 'order', 'original_filename', 'created_at']
+  const headers = ['img_250', 'id', 'uuid', 'copy', 'order', 'rotation', 'original_filename', 'created_at']
 
   return (
     <>

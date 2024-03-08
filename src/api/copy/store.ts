@@ -15,7 +15,7 @@ class Store {
 
         let url = `${API_URL}${API_COPY}${id ?? ''}`
         if (page !== undefined) url = `${url}?page=${page}`
-        console.log('Fetching copy: ', url)
+        // console.log('Fetching copy: ', url)
         getData<TCopy>(url).then(response => {
           if (response.data) {
             this._copy[id] = response.data
@@ -32,7 +32,7 @@ class Store {
         if (this._image[id]) resolve(this._image[id])
 
         const url = `${API_URL}${API_IMG}${id}`
-        console.log('Fetching image: ', url)
+        // console.log('Fetching image: ', url)
         getData<TImage>(url).then(response => {
           if (response.data) {
             this._image[id] = response.data
