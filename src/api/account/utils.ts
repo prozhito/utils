@@ -6,7 +6,7 @@ export const getLifespan = (days: number) => {
 }
 
 export const setCookie = (props: Record<string, string>) => {
-  let cookieString = Object.keys(props).reduce((acc, key) => (acc += `${key}=${props[key]};`), '')
+  const cookieString = Object.keys(props).reduce((acc, key) => (acc += `${key}=${props[key]};`), '')
   // if (!DEV) cookieString += 'secure=true'
   if (typeof document !== 'undefined') document.cookie = cookieString
 }

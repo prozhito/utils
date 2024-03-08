@@ -14,13 +14,13 @@ function getInitials(user: Record<string, string>) {
 export const UserMenu = () => {
   const [modalVisible, setModalVisible] = React.useState(false)
   const { loading, error, user, login, logout } = useAccount()
-
+  /* 
   React.useEffect(() => {
     console.log('loading:', loading)
     console.log('error:', error)
     console.log('user:', user)
   }, [])
-
+ */
   return (
     <>
       <div className={styles.user__menu} onClick={() => setModalVisible(true)}>

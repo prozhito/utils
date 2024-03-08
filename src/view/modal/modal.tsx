@@ -12,7 +12,7 @@ type TState = { visible: boolean; children: React.ReactNode | null }
 export const Modal: IModal = (() => {
   const func: { [k in string | symbol]: React.Dispatch<React.SetStateAction<TState>> } = {}
 
-  const modal = ({ children }: { children?: React.ReactNode }) => {
+  const Component = ({ children }: { children?: React.ReactNode }) => {
     const [state, setState] = React.useState<TState>({ visible: false, children })
     func.setState = setState
 
@@ -39,10 +39,10 @@ export const Modal: IModal = (() => {
     )
   }
 
-  modal.Show = (children?: React.ReactNode) => {
+  Component.Show = (children?: React.ReactNode) => {
     if (children && func.setState) func.setState({ visible: true, children })
     else if (func.setState) func.setState(prev => ({ ...prev, visible: true }))
   }
 
-  return modal
+  return Component
 })()

@@ -33,11 +33,6 @@ export const ModalAccount = ({ loading, error, user, login, logout, visible, clo
     }
   }
 
-  const killToken = () => {
-    document.cookie = 'access= ; expires = Thu, 01 Jan 1970 00:00:00 GMT'
-    if (typeof window != 'undefined') window.location.reload()
-  }
-
   // const info = () => console.log(user)
 
   return (

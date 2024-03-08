@@ -1,5 +1,5 @@
 import { objectKeys } from '~/utils/types'
-import type { TCopy } from '~/api/types'
+import type { TCopy } from '~/api/copy/types'
 
 import './styles.css'
 
@@ -13,7 +13,7 @@ export function ParseTable(data: TCopy) {
             if (key !== 'images') {
               return (
                 <tr key={i}>
-                  <td>{key}</td>
+                  <td>{key as string}</td>
                   <td>{data[key]}</td>
                 </tr>
               )
