@@ -1,7 +1,7 @@
 import type { TImage } from '~/api/copy/types'
 
 export function ParseImages(data: TImage[]) {
-  const headers = ['img_250', 'id', 'uuid', 'copy', 'order', 'rotation', 'original_filename', 'created_at']
+  const headers = ['order', 'img_250', 'rotation', 'original_filename', 'id', 'uuid', 'created_at']
 
   return (
     <>
@@ -17,10 +17,19 @@ export function ParseImages(data: TImage[]) {
         <tbody className="table__images_body">
           {data.map((item, i) => {
             if (!item) return null
+            if (item.error)
+              return (
+                <tr key={`r${i}`}>
+                  <td></td>
+                  <td colSpan={6} className="table__error">
+                    {item.error}
+                  </td>
+                </tr>
+              )
             return (
               <tr key={`r${i}`}>
                 {headers.map((key, i) => (
-                  <td key={`d${i}`}>{key === 'img_250' ? <img src={item[key as keyof TImage].toString()} /> : item[key as keyof TImage]}</td>
+                  <td key={`d${i}`}>{key === 'img_250' ? <img src={item.img_250} /> : item[key as keyof TImage]}</td>
                   // <td key={`d${i}`}>{key === 'img_250' ? 'img' : item[key as keyof TImage]}</td>
                 ))}
               </tr>

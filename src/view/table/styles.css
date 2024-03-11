@@ -18,3 +18,7 @@
 .table__images_body td:not(:last-of-type) {
   border-right: 1px solid var(--color30);
 }
+
+.table__error {
+  color: red;
+}

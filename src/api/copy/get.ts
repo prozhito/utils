@@ -30,7 +30,8 @@ export const getData = async <T>(url: string, auth = false): Promise<{ data?: T;
       })
 
     if (info.error) {
-      return { error: response ? response.detail : info.error }
+      const error = `${response ? response.detail : info.error} (${info.status})`
+      return { error }
     }
     return { data: response }
   } catch (error) {

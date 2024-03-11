@@ -13,7 +13,7 @@ class Store {
       if (id != undefined) {
         if (this._copy[id]) resolve(this._copy[id])
 
-        let url = `${API_URL}${API_COPY}${id ?? ''}`
+        let url = `${API_URL}${API_COPY}${id ?? ''}/`
         if (page !== undefined) url = `${url}?page=${page}`
         // console.log('Fetching copy: ', url)
         getData<TCopy>(url, true).then(response => {
@@ -34,7 +34,7 @@ class Store {
           return
         }
 
-        const url = `${API_URL}${API_IMG}${id}`
+        const url = `${API_URL}${API_IMG}${id}/`
         // console.log('Fetching image: ', url)
         getData<TImage>(url).then(response => {
           if (response.data) {
@@ -43,13 +43,14 @@ class Store {
           } else {
             this._image[id] = {
               id,
-              uuid: response.error ?? '',
+              uuid: '',
               copy: 0,
               order: 0,
               original_filename: '',
               created_at: '',
               img_250: '',
               rotation: 0,
+              error: response.error ?? '',
             }
             reject(response.error)
           }
