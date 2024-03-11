@@ -1,4 +1,5 @@
 import type { TImage } from '~/api/copy/types'
+import * as Icon from '../ui/icons/rotate'
 
 export function ParseImages(data: TImage[]) {
   const headers = ['order', 'img_250', 'rotation', 'original_filename', 'id', 'uuid', 'created_at']
@@ -29,8 +30,7 @@ export function ParseImages(data: TImage[]) {
             return (
               <tr key={`r${i}`}>
                 {headers.map((key, i) => (
-                  <td key={`d${i}`}>{key === 'img_250' ? <img src={item.img_250} /> : item[key as keyof TImage]}</td>
-                  // <td key={`d${i}`}>{key === 'img_250' ? 'img' : item[key as keyof TImage]}</td>
+                  <td key={`d${i}`}>{tableCell(item, key)}</td>
                 ))}
               </tr>
             )
@@ -39,4 +39,25 @@ export function ParseImages(data: TImage[]) {
       </table>
     </>
   )
+}
+
+function tableCell(item: TImage, key: string) {
+  switch (key) {
+    case 'img_250': {
+      return <img src={item.img_250} />
+    }
+    case 'rotation': {
+      return (
+        <>
+          <p className="table__text">{item.rotation}</p>
+          <Icon.RotateRight />
+          <Icon.RotateLeft size={'2em'} />
+          <Icon.ColumnHeight />
+        </>
+      )
+    }
+    default: {
+      return item[key as keyof TImage]
+    }
+  }
 }

@@ -22,3 +22,20 @@
 .table__error {
   color: red;
 }
+
+.table__text {
+  text-align: center;
+}
+
+.table__images .icon {
+  display: block;
+  margin: 0.5em auto;
+  padding: 0.25em;
+  background-color: var(--color20);
+  border-radius: 0.25em;
+  transition: opacity 0.25s linear;
+  cursor: pointer;
+}
+.table__images .icon:hover {
+  opacity: 0.65;
+}
