@@ -62,7 +62,7 @@ function App() {
       {data && <>{ParseTable(data)}</>}
       {images && (
         <>
-          {ParseImages(images)}
+          <ParseImages data={images} />
           <Pagination
             current={page + 1}
             showSizeChanger={false}

@@ -1,11 +1,70 @@
+import React from 'react'
 import type { TImage } from '~/api/copy/types'
-import * as Icon from '../ui/icons/rotate'
+import { RotateButton } from './ui/rotate'
+import { rotate, type TUpdateCallback } from '~/api/copy/rotate/rotate'
+import { message } from 'antd'
 
-export function ParseImages(data: TImage[]) {
+export const ParseImages: React.FC<{ data: TImage[] }> = ({ data }) => {
   const headers = ['order', 'img_250', 'rotation', 'original_filename', 'id', 'uuid', 'created_at']
+  const [images, setImages] = React.useState<TImage[]>(data)
+  const [messageApi, contextHolder] = message.useMessage()
+  const lock: Record<string, HTMLDivElement> = {}
+
+  const updateCallback: TUpdateCallback = ({ data, error }) => {
+    // console.log({ data, error })
+    if (error) {
+      messageApi.open({
+        type: 'error',
+        content: error,
+      })
+    }
+    if (data) {
+      setImages(prev => prev.map(item => (item.id === data.id ? data : item)))
+      if (lock[data.id]) {
+        lock[data.id].classList.remove('disabled')
+        delete lock[data.id]
+      }
+    }
+  }
+
+  function tableCell(item: TImage, key: string) {
+    const [id, rotation] = [item.id, item.rotation]
+    const onClick: React.MouseEventHandler<HTMLDivElement> = event => {
+      const el = event.target as HTMLDivElement
+      const dir = el.getAttribute('data-dir')
+      if (dir) {
+        const block = event.currentTarget as HTMLDivElement
+        block.classList.add('disabled')
+        lock[id] = block
+        rotate(id, rotation, dir, updateCallback)
+      }
+    }
+
+    switch (key) {
+      case 'img_250': {
+        return <img src={item.img_250} className={`table__img_${rotation}`} />
+      }
+      case 'rotation': {
+        return (
+          <>
+            <p className="table__text">{rotation}</p>
+            <div className="table__rotate" onClick={onClick}>
+              <RotateButton direction="left" />
+              <RotateButton direction="turn" />
+              <RotateButton direction="right" />
+            </div>
+          </>
+        )
+      }
+      default: {
+        return item[key as keyof TImage]
+      }
+    }
+  }
 
   return (
     <>
+      {contextHolder}
       <h3>Images</h3>
       <table className="table__images">
         <thead className="table__images_head">
@@ -16,7 +75,7 @@ export function ParseImages(data: TImage[]) {
           </tr>
         </thead>
         <tbody className="table__images_body">
-          {data.map((item, i) => {
+          {images.map((item, i) => {
             if (!item) return null
             if (item.error)
               return (
@@ -40,26 +99,8 @@ export function ParseImages(data: TImage[]) {
     </>
   )
 }
-
-function tableCell(item: TImage, key: string) {
-  switch (key) {
-    case 'img_250': {
-      return <img src={item.img_250} />
-    }
-    case 'rotation': {
-      return (
-        <>
-          <p className="table__text">{item.rotation}</p>
-          <div className="table__rotate">
-            <Icon.RotateLeft size={'1.5em'} />
-            <Icon.ColumnHeight size={'1.5em'} />
-            <Icon.RotateRight size={'1.5em'} />
-          </div>
-        </>
-      )
-    }
-    default: {
-      return item[key as keyof TImage]
-    }
-  }
+/* 
+const rotateClickHandler = event => {
+  console.log(event.target, (event.target as HTMLDivElement).getAttribute('data-dir'))
 }
+ */

@@ -26,6 +26,10 @@ class Store {
     })
   }
 
+  setImage({ id, data }: { id: number; data: TImage }) {
+    this._image[id] = data
+  }
+
   getImage({ id }: { id?: number }) {
     return new Promise<TImage>((resolve, reject) => {
       if (id != undefined) {

@@ -31,14 +31,13 @@
   text-align: center;
 }
 
-.table__rotate .icon {
-  margin: 0.5em;
-  padding: 0.25em;
-  background-color: var(--color20);
-  border-radius: 0.25em;
-  transition: opacity 0.25s linear;
-  cursor: pointer;
+/* .table__img_0 */
+.table__img_90 {
+  transform: rotateZ(90deg);
 }
-.table__rotate .icon:hover {
-  opacity: 0.65;
+.table__img_180 {
+  transform: rotateZ(180deg);
+}
+.table__img_270 {
+  transform: rotateZ(270deg);
 }

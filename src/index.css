@@ -151,6 +151,16 @@ code {
   font-size: 1.3em;
 }
 
+.disabled {
+  pointer-events: none;
+  opacity: 0.65;
+}
+.disabled::after {
+  content: 'Loading...';
+  display: block;
+}
+
+/* Patches */
 .pagination__val,
 .pagination__btn {
   font-family: 'Courier New', Courier, monospace;
