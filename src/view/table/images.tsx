@@ -50,9 +50,11 @@ function tableCell(item: TImage, key: string) {
       return (
         <>
           <p className="table__text">{item.rotation}</p>
-          <Icon.RotateRight />
-          <Icon.RotateLeft size={'2em'} />
-          <Icon.ColumnHeight />
+          <div className="table__rotate">
+            <Icon.RotateLeft size={'1.5em'} />
+            <Icon.ColumnHeight size={'1.5em'} />
+            <Icon.RotateRight size={'1.5em'} />
+          </div>
         </>
       )
     }

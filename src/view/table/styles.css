@@ -27,15 +27,18 @@
   text-align: center;
 }
 
-.table__images .icon {
-  display: block;
-  margin: 0.5em auto;
+.table__rotate {
+  text-align: center;
+}
+
+.table__rotate .icon {
+  margin: 0.5em;
   padding: 0.25em;
   background-color: var(--color20);
   border-radius: 0.25em;
   transition: opacity 0.25s linear;
   cursor: pointer;
 }
-.table__images .icon:hover {
+.table__rotate .icon:hover {
   opacity: 0.65;
 }

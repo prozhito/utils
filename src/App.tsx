@@ -4,6 +4,7 @@ import { ParseTable } from './view/table/table'
 import { ParseImages } from './view/table/images'
 import { LittleSpinner } from './view/ui/spinner'
 import { Pagination } from 'antd'
+import { Button, message, Space } from 'antd'
 
 type TPageProps = { id: number; page: number }
 
@@ -11,6 +12,14 @@ function App() {
   const inputRef = React.useRef<HTMLInputElement>(null)
   const [{ id, page }, setPage] = React.useState<TPageProps>({ id: 14322, page: 0 })
   const { loading, data, images, error } = useGetPage({ id, page })
+  const [messageApi, contextHolder] = message.useMessage()
+
+  const success = () => {
+    messageApi.open({
+      type: 'success',
+      content: 'This is a success message',
+    })
+  }
 
   const changeItemHandler: React.KeyboardEventHandler<HTMLInputElement> = React.useCallback(event => {
     if (event.key === 'Enter') {
@@ -29,6 +38,10 @@ function App() {
 
   return (
     <>
+      {contextHolder}
+      <Space>
+        <Button onClick={success}>Success</Button>
+      </Space>
       <label>
         <span>Select item id </span>
         <button className="pagination__btn" onClick={() => slideItemHandler(-1)}>
