@@ -6,9 +6,13 @@ import { message } from 'antd'
 
 export const ParseImages: React.FC<{ data: TImage[] }> = ({ data }) => {
   const headers = ['order', 'img_250', 'rotation', 'original_filename', 'id', 'uuid', 'created_at']
-  const [images, setImages] = React.useState<TImage[]>(data)
+  const [images, setImages] = React.useState<TImage[]>([])
   const [messageApi, contextHolder] = message.useMessage()
   const lock: HTMLDivElement[] = []
+
+  React.useEffect(() => {
+    setImages(data)
+  }, [data])
 
   const updateCallback: TUpdateCallback = ({ data, error }) => {
     // console.log({ data, error })

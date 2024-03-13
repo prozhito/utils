@@ -1,17 +1,10 @@
 import React from 'react'
-import { useGetPage } from './api/copy/useGetPage'
-import { ParseTable } from './view/table/table'
-import { ParseImages } from './view/table/images'
-import { LittleSpinner } from './view/ui/spinner'
-import { Pagination } from 'antd'
+import Editor from './editor/editor'
 import { Button, message, Space } from 'antd'
-
-type TPageProps = { id: number; page: number }
 
 function App() {
   const inputRef = React.useRef<HTMLInputElement>(null)
-  const [{ id, page }, setPage] = React.useState<TPageProps>({ id: 14322, page: 0 })
-  const { loading, data, images, error } = useGetPage({ id, page })
+  const [id, setId] = React.useState(14322)
   const [messageApi, contextHolder] = message.useMessage()
 
   const success = () => {
@@ -25,14 +18,14 @@ function App() {
     if (event.key === 'Enter') {
       const el = event.target as HTMLInputElement
       el.blur()
-      setPage({ id: Number(el.value), page: 0 })
+      setId(Number(el.value))
     }
   }, [])
 
   const slideItemHandler = (direction: number) => {
-    setPage(prev => {
-      if (inputRef.current) inputRef.current.value = (prev.id + direction).toString()
-      return { id: prev.id + direction, page: 0 }
+    setId(prev => {
+      if (inputRef.current) inputRef.current.value = (prev + direction).toString()
+      return id + direction
     })
   }
 
@@ -52,25 +45,8 @@ function App() {
           {'\u003e'}
         </button>
       </label>
-      {loading && (
-        <>
-          <LittleSpinner />
-          <span>Loading...</span>
-        </>
-      )}
-      {error && <p>{error}</p>}
-      {data && <>{ParseTable(data)}</>}
-      {images && (
-        <>
-          <ParseImages data={images} />
-          <Pagination
-            current={page + 1}
-            showSizeChanger={false}
-            total={data?.images.length}
-            onChange={page => setPage(prev => ({ id: prev.id, page: page - 1 }))}
-          />
-        </>
-      )}
+
+      <Editor id={id} />
     </>
   )
 }

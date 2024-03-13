@@ -24,12 +24,12 @@ export const useGetPage = ({ id, page }: TGetPageProps) => {
         setState({
           loading: false,
           data: data || undefined,
-          images: images && images.length ? images : undefined,
+          images: images.length ? images : undefined,
           error,
         })
       })
     }
   }, [id, page])
 
-  return { loading: state.loading, data: state.data, images: state.images, error: state.error }
+  return state
 }

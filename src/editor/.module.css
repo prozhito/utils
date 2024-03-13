@@ -1,0 +1,5 @@
+.message__loading {
+  display: flex;
+  column-gap: 1em;
+  align-items: center;
+}
