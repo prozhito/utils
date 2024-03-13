@@ -16,7 +16,7 @@ export const putData = async <T>(url: string, body: string, auth = false): Promi
     }
     if (auth) {
       const token = getCookieValue('access')
-      if (token) options.headers = { Authorization: `Bearer ${token}` }
+      if (token) options.headers.Authorization = `Bearer ${token}`
     }
     const response = await fetch(url, options)
       .then(response => {
