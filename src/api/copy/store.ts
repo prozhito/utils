@@ -40,7 +40,7 @@ class Store {
 
         const url = `${API_URL}${API_IMG}${id}/`
         // console.log('Fetching image: ', url)
-        getData<TImage>(url).then(response => {
+        getData<TImage>(url, true).then(response => {
           if (response.data) {
             this._image[id] = response.data
             resolve(this._image[id])

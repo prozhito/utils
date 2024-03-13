@@ -8,7 +8,7 @@ export const ParseImages: React.FC<{ data: TImage[] }> = ({ data }) => {
   const headers = ['order', 'img_250', 'rotation', 'original_filename', 'id', 'uuid', 'created_at']
   const [images, setImages] = React.useState<TImage[]>(data)
   const [messageApi, contextHolder] = message.useMessage()
-  const lock: Record<string, HTMLDivElement> = {}
+  const lock: HTMLDivElement[] = []
 
   const updateCallback: TUpdateCallback = ({ data, error }) => {
     // console.log({ data, error })
@@ -20,10 +20,10 @@ export const ParseImages: React.FC<{ data: TImage[] }> = ({ data }) => {
     }
     if (data) {
       setImages(prev => prev.map(item => (item.id === data.id ? data : item)))
-      if (lock[data.id]) {
-        lock[data.id].classList.remove('disabled')
-        delete lock[data.id]
-      }
+    }
+    while (lock.length) {
+      const el = lock.pop()
+      if (el) el.classList.remove('disabled')
     }
   }
 
@@ -35,7 +35,7 @@ export const ParseImages: React.FC<{ data: TImage[] }> = ({ data }) => {
       if (dir) {
         const block = event.currentTarget as HTMLDivElement
         block.classList.add('disabled')
-        lock[id] = block
+        lock.push(block)
         rotate(id, rotation, dir, updateCallback)
       }
     }
