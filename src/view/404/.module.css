@@ -1,0 +1,14 @@
+.page__404 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.page__404_link {
+  color: var(--color90);
+  transition: opacity 0.25s linear;
+  cursor: pointer;
+}
+.page__404_link:hover {
+  opacity: 0.65;
+}
