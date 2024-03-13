@@ -5,7 +5,7 @@ import { createPortal } from 'react-dom'
 
 import styles from './.module.css'
 
-const defaultUser = '/icon/user.svg'
+const defaultUser = './icon/user.svg'
 
 function getInitials(user: Record<string, string>) {
   return `${(user.first_name ?? '').charAt(0)}${(user.last_name ?? '').charAt(0)}`

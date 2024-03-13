@@ -7,7 +7,7 @@ type TUserInfoProps = {
   user?: Record<TFields, string> | null
 }
 
-const showFields: Partial<TFields>[] = ['id', 'email', 'first_name', 'last_name']
+const showFields: Partial<TFields>[] = ['email', 'first_name', 'last_name']
 
 export const UserInfo = ({ user }: TUserInfoProps) => {
   if (!user) return null

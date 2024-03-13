@@ -14,7 +14,7 @@ function DigitalCopySelector() {
       const el = event.target as HTMLInputElement
       el.blur()
       // setId(Number(el.value))
-      router.go(`?copy_id=${el.value}`)
+      router.go(`/utils?copy_id=${el.value}`)
     }
   }, [])
 
@@ -23,7 +23,7 @@ function DigitalCopySelector() {
       if (inputRef.current) inputRef.current.value = (prev + direction).toString()
       return id + direction
     }) */
-    router.go(`?copy_id=${id + direction}`)
+    router.go(`/utils?copy_id=${id + direction}`)
   }
 
   return (

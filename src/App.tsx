@@ -22,7 +22,15 @@ function App() {
       '404': () => setRoute({ route: '404' }),
     }
 
-    router.use('/', routes.selector).use('?copy_id', routes.editor).use('/404', routes['404']).start()
+    router
+      .use('/', routes.selector)
+      .use('/utils', routes.selector)
+      .use('/utils/', routes.selector)
+      .use('/utils?copy_id', routes.editor)
+      .use('/utils/?copy_id', routes.editor)
+      .use('/?copy_id', routes.editor)
+      .use('/404', routes['404'])
+      .start()
   }, [])
 
   switch (route) {

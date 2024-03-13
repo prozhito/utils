@@ -68,20 +68,17 @@ class Router {
   }
 
   private _popstateHandler = () => {
-    if (window.location.pathname.length > 1) {
-      this._onRoute(window.location.pathname)
-      return
-    }
     if (window.location.search) {
       const [pathname, param] = window.location.search.split('=')
       const props: TPageProps = { [pathname.substring(1)]: param }
-      this._onRoute(pathname, props)
+      this._onRoute(`${window.location.pathname}${pathname}`, props)
       return
     }
-    this._onRoute('/')
+    this._onRoute(window.location.pathname)
   }
 
   private _onRoute(pathname: string, props?: TPageProps) {
+    // console.log(pathname, props)
     let route: Route | null = this.getRoute(pathname)
     if (!route) route = this.getRoute('/404')
     if (route) {
@@ -93,9 +90,9 @@ class Router {
 
   public go(pathname: string) {
     this.history.pushState({ route: pathname }, '', pathname)
-    if (pathname.charAt(0) === '?') {
+    if (pathname.includes('?')) {
       const [path, param] = pathname.split('=')
-      const props: TPageProps = { [path.substring(1)]: param }
+      const props: TPageProps = { [path.split('?')[1]]: param }
       this._onRoute(path, props)
       return
     }
