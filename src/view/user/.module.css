@@ -15,3 +15,11 @@
 .user__menu:hover {
   opacity: 0.65;
 }
+
+.user__info_table {
+  width: 100%;
+  cursor: default;
+}
+.user__info_table tr:hover {
+  background-color: #0003;
+}

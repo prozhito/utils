@@ -1,5 +1,6 @@
 import { FormInput, FormSubmit } from '../ui/form'
 import { Button } from '../ui'
+import { UserInfo } from '../user/user'
 import styles from './.module.css'
 
 type TFormLoginProps = {
@@ -62,13 +63,7 @@ export const ModalAccount = ({ loading, error, user, login, logout, visible, clo
         {user && (
           <>
             <h1>Account</h1>
-            <div className={styles.user__info_container}>
-              {Object.keys(user).map(key => (
-                <p key={key}>
-                  {key}: {user[key]}
-                </p>
-              ))}
-            </div>
+            <UserInfo user={user} />
             <Button onClick={logout}>{'logout'}</Button>
             <Button onClick={() => location.assign('https://profile.prozhito.org')}>{'openAccount'}</Button>
             {/* <Button onClick={killToken}>Kill token</Button> */}
