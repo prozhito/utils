@@ -26,3 +26,17 @@ export type TImage = {
   rotation: number
   error?: string
 }
+
+export type TCopyStatus = {
+  id: number
+  title: string
+}
+
+export type TCopyStatusResponse = {
+  count: number
+  next: string | null
+  previous: string | null
+  results: TCopyStatus[]
+}
+
+export type TUpdateCallback<T> = ({ data, error }: { data?: T; error?: string }) => void

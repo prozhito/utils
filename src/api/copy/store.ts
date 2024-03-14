@@ -1,5 +1,5 @@
-import { API_URL, API_COPY, API_IMG } from './constants'
-import type { TCopy, TImage } from './types'
+import { API_URL, API_COPY, API_IMG, API_STATUS } from './constants'
+import type { TCopy, TImage, TCopyStatus, TCopyStatusResponse } from './types'
 import { getData } from './get'
 
 type TUpdateCallback = ({ data, images, error }: { data: TCopy | null; images: TImage[]; error?: string }) => void
@@ -7,6 +7,26 @@ type TUpdateCallback = ({ data, images, error }: { data: TCopy | null; images: T
 class Store {
   private _copy: Record<string, TCopy> = {}
   private _image: Record<string, TImage> = {}
+  private _statusValues: TCopyStatus[] = []
+
+  setCopy({ id, data }: { id: number; data: TCopy }) {
+    this._copy[id] = data
+  }
+
+  getStatusValues() {
+    return new Promise<TCopyStatus[]>((resolve, reject) => {
+      if (this._statusValues.length) resolve(this._statusValues)
+
+      let url = `${API_URL}${API_STATUS}`
+      // console.log('Fetching statusValues: ', url)
+      getData<TCopyStatusResponse>(url, true).then(response => {
+        if (response.data) {
+          this._statusValues = response.data.results
+          resolve(this._statusValues)
+        } else reject(response.error)
+      })
+    })
+  }
 
   getCopy({ id, page }: { id?: number; page?: number }) {
     return new Promise<TCopy>((resolve, reject) => {

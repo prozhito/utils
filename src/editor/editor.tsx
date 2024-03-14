@@ -24,7 +24,7 @@ function Editor({ id }: { id: number }) {
         </div>
       )}
       {error && <p>{error}</p>}
-      {data && ParseTable(data)}
+      {data && <ParseTable data={data} />}
       {images && (
         <>
           <ParseImages data={images} />

@@ -1,7 +1,7 @@
 import React from 'react'
-import type { TImage } from '~/api/copy/types'
+import type { TImage, TUpdateCallback } from '~/api/copy/types'
 import { RotateButton } from './ui/rotate'
-import { rotate, type TUpdateCallback } from '~/api/copy/rotate/rotate'
+import { rotate } from '~/api/copy/rotate/rotate'
 import { message } from 'antd'
 
 export const ParseImages: React.FC<{ data: TImage[] }> = ({ data }) => {
@@ -14,7 +14,7 @@ export const ParseImages: React.FC<{ data: TImage[] }> = ({ data }) => {
     setImages(data)
   }, [data])
 
-  const updateCallback: TUpdateCallback = ({ data, error }) => {
+  const updateCallback: TUpdateCallback<TImage> = ({ data, error }) => {
     // console.log({ data, error })
     if (error) {
       messageApi.open({
