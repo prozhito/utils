@@ -12,14 +12,28 @@ type TState = {
 const defaultRoute: TState = { route: null }
 const defaultDigitalCopyId = 14322
 
+const setTitle = (text: string) => {
+  const title = document.querySelector('.header__title')
+  if (title) title.textContent = text
+}
+
 function App() {
   const [{ route, props }, setRoute] = React.useState<TState>(defaultRoute)
 
   React.useEffect(() => {
     const routes = {
-      selector: () => setRoute({ route: 'selector' }),
-      editor: (props?: TPageProps) => setRoute({ route: 'editor', props }),
-      '404': () => setRoute({ route: '404' }),
+      selector: () => {
+        setTitle('Utils')
+        setRoute({ route: 'selector' })
+      },
+      editor: (props?: TPageProps) => {
+        setTitle('Editor')
+        setRoute({ route: 'editor', props })
+      },
+      '404': () => {
+        setTitle('404')
+        setRoute({ route: '404' })
+      },
     }
 
     router

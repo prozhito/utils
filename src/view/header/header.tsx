@@ -11,7 +11,7 @@ export function Header() {
           <img src="./logo/eusp_logo_ru.svg" height="30" alt="Logo" />
         </a>
       </div>
-      <h1>Prozhito utils</h1>
+      <h1 className="header__title">Utils</h1>
       <UserMenu />
     </header>
   )

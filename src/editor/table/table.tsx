@@ -4,8 +4,34 @@ import { objectKeys } from '~/utils/types'
 import type { TCopy, TCopyStatus } from '~/api/copy/types'
 import { setCopyStatus } from '~/api/copy/status/status'
 import { message, Select } from 'antd'
+import { formatBytes } from '~/utils/format'
 
 import './styles.css'
+
+type TTableKey = Exclude<keyof TCopy, 'item' | 'item_id' | 'is_main' | 'images'>
+type TTableView = Record<TTableKey, string>
+const tableView: TTableView = {
+  item_title: 'Документ',
+  id: 'id копии',
+  other_copies_of_this_item: 'Другие копии документа',
+  images_count: 'Кол-во изображений',
+  total_size: 'Суммарный размер',
+  source_type: 'Источник',
+  method: 'Метод',
+  status: 'Статус',
+  tags: 'Теги',
+  notes: 'Примечания',
+  date: 'Дата оцифровки',
+  zip: 'zip',
+  zip_preview: 'zip_preview',
+}
+
+const isBlank = (value: unknown) => {
+  if (typeof value === 'boolean' && !value) return true
+  if (value === null || value === undefined || value === '') return true
+  if (Array.isArray(value) && !value.length) return true
+  return false
+}
 
 export const ParseTable: React.FC<{ data: TCopy }> = ({ data }) => {
   const [messageApi, contextHolder] = message.useMessage()
@@ -37,11 +63,12 @@ export const ParseTable: React.FC<{ data: TCopy }> = ({ data }) => {
       <h3>Copy</h3>
       <table className="table__copy">
         <tbody className="table__copy_body">
-          {objectKeys(data).map((key, i) => {
+          {objectKeys(tableView).map((key, i) => {
+            if (isBlank(data[key])) return null
             if (key === 'status') {
               return (
                 <tr key={i}>
-                  <td>{key as string}</td>
+                  <td>{tableView[key]}</td>
                   <td>
                     <Select
                       defaultValue={data[key]}
@@ -53,14 +80,20 @@ export const ParseTable: React.FC<{ data: TCopy }> = ({ data }) => {
                 </tr>
               )
             }
-            if (key !== 'images') {
+            if (key === 'total_size') {
               return (
                 <tr key={i}>
-                  <td>{key as string}</td>
-                  <td>{data[key]}</td>
+                  <td>{tableView[key]}</td>
+                  <td>{formatBytes(data[key])}</td>
                 </tr>
               )
             }
+            return (
+              <tr key={i}>
+                <td>{tableView[key]}</td>
+                <td>{data[key]}</td>
+              </tr>
+            )
           })}
         </tbody>
       </table>

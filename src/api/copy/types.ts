@@ -4,6 +4,8 @@ export type TCopy = {
   item_title: string
   item_id: number
   method: number
+  other_copies_of_this_item: number[]
+  total_size: number
   source_type: number
   status: number
   tags: number[]
@@ -11,6 +13,7 @@ export type TCopy = {
   date: string | null
   is_main: boolean
   images: number[]
+  images_count: number
   zip: string | null
   zip_preview: string | null
 }

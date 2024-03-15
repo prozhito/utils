@@ -17,7 +17,7 @@ class Store {
     return new Promise<TCopyStatus[]>((resolve, reject) => {
       if (this._statusValues.length) resolve(this._statusValues)
 
-      let url = `${API_URL}${API_STATUS}`
+      const url = `${API_URL}${API_STATUS}`
       // console.log('Fetching statusValues: ', url)
       getData<TCopyStatusResponse>(url, true).then(response => {
         if (response.data) {
