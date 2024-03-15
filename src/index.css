@@ -177,3 +177,7 @@ code {
 .ant-pagination-item-active {
   background-color: var(--color50) !important;
 }
+
+.ant-select {
+  width: 15em;
+}

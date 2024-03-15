@@ -43,7 +43,12 @@ export const ParseTable: React.FC<{ data: TCopy }> = ({ data }) => {
                 <tr key={i}>
                   <td>{key as string}</td>
                   <td>
-                    <Select defaultValue={data[key]} onChange={handleStatusChange} options={statusValues.map(obj => ({ value: obj.id, label: obj.title }))} />
+                    <Select
+                      defaultValue={data[key]}
+                      onChange={handleStatusChange}
+                      options={statusValues.map(obj => ({ value: obj.id, label: obj.title }))}
+                      popupMatchSelectWidth={false}
+                    />
                   </td>
                 </tr>
               )
