@@ -46,7 +46,7 @@ export const ParseImages: React.FC<{ data: TImage[] }> = ({ data }) => {
 
     switch (key) {
       case 'img_250': {
-        return <img src={item.img_250} className={`table__img_${rotation}`} />
+        return <div className={`table__img_${rotation}`} style={{ backgroundImage: `url(${item.img_250})` }}></div>
       }
       case 'rotation': {
         return (

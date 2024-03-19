@@ -31,7 +31,17 @@
   text-align: center;
 }
 
-/* .table__img_0 */
+.table__img_0,
+.table__img_90,
+.table__img_180,
+.table__img_270 {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+  min-width: 280px;
+  aspect-ratio: 1;
+}
 .table__img_90 {
   transform: rotateZ(90deg);
 }
