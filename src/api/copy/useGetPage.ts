@@ -19,7 +19,7 @@ export const useGetPage = ({ id, page }: TGetPageProps) => {
 
   React.useEffect(() => {
     if (id !== undefined) {
-      setState({ loading: true })
+      setState(prev => ({ ...prev, loading: true }))
       store.updatePage({ id, page }, ({ data, images, error }) => {
         setState({
           loading: false,

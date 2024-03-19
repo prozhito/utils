@@ -88,7 +88,8 @@ class Store {
       .then(data => {
         const items = data.images
         if (items) {
-          const ids = items.slice(page * 10, page * 10 + 10)
+          // const ids = items.slice(page * 10, page * 10 + 10)
+          const ids = items.slice(0, page * 10 + 10)
           const arr = ids.map(id => this.getImage({ id }))
           Promise.allSettled(arr).finally(() => {
             const images = ids.map(id => this._image[id])

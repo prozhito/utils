@@ -1,4 +1,3 @@
-'use client'
 import { apiGetData } from './get'
 import { setCookie, getLifespan } from '../utils'
 
