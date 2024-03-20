@@ -1,4 +1,4 @@
-.modal__outer {
+.modal {
   z-index: 900;
   position: fixed;
   width: 100dvw;
@@ -10,7 +10,7 @@
   align-items: center;
   justify-content: center;
 }
-.modal__outer_hidden {
+.modal_hidden {
   display: none;
 }
 

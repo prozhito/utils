@@ -67,6 +67,10 @@ class Router {
     this._popstateHandler()
   }
 
+  public reload() {
+    this._popstateHandler()
+  }
+
   private _popstateHandler = () => {
     if (window.location.search) {
       const [pathname, param] = window.location.search.split('=')

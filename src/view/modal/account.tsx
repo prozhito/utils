@@ -37,7 +37,7 @@ export const ModalAccount = ({ loading, error, user, login, logout, visible, clo
   // const info = () => console.log(user)
 
   return (
-    <div className={visible ? styles.modal__outer : styles.modal__outer_hidden} onClick={handleClick}>
+    <div className={visible ? styles.modal : styles.modal_hidden} onClick={handleClick}>
       <div className={styles.modal__inner}>
         <div className={styles.modal__close} onClick={closeModal}>
           <svg viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">

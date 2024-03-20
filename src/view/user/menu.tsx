@@ -2,6 +2,7 @@ import React from 'react'
 import { useAccount } from '~/api/account'
 import { ModalAccount } from '../modal/account'
 import { createPortal } from 'react-dom'
+import router from '~/utils/Router'
 
 import styles from './.module.css'
 
@@ -14,13 +15,16 @@ function getInitials(user: Record<string, string>) {
 export const UserMenu = () => {
   const [modalVisible, setModalVisible] = React.useState(false)
   const { loading, error, user, login, logout } = useAccount()
-  /* 
+
   React.useEffect(() => {
-    console.log('loading:', loading)
-    console.log('error:', error)
-    console.log('user:', user)
-  }, [])
- */
+    if (router.getRoute()?._pathname === '/login' || (!loading && !user)) setModalVisible(true)
+    else if (modalVisible && !loading) {
+      setModalVisible(false)
+      router.reload()
+    }
+    // console.log('loading:', loading, 'error:', error, 'user:', user)
+  }, [loading])
+
   return (
     <>
       <div className={styles.user__menu} onClick={() => setModalVisible(true)}>

@@ -5,7 +5,7 @@ import { setCookie, getLifespan } from './utils'
 export class Account {
   static _instance: Account
   private _user: Record<string, string> | null = null
-  private _loading = false
+  private _loading = true
   private _error = ''
   static _updateCallback: (() => void)[] = []
 

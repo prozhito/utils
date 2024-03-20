@@ -63,9 +63,6 @@ a:hover {
 
 body {
   margin: 0;
-}
-
-.app {
   position: relative;
   display: flex;
   flex-direction: column;

@@ -28,7 +28,7 @@ export const Modal: IModal = (() => {
     const closeModal = () => setState(prev => ({ ...prev, visible: false }))
 
     return (
-      <div className={state.visible ? styles.modal__outer : styles.modal__outer_hidden} onClick={handleClick}>
+      <div className={state.visible ? styles.modal : styles.modal_hidden} onClick={handleClick}>
         <div className={styles.modal__wrapper}>
           <div className={styles.modal__close} onClick={closeModal}>
             <img src={closeImg} alt={'close'} />

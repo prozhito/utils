@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom/client'
 import { Header } from './view/header/header.tsx'
 import { Footer } from './view/footer/footer.tsx'
 import App from './App.tsx'
-import './index.css'
+import './styles.css'
 
-ReactDOM.createRoot(document.querySelector('.app')!).render(
+ReactDOM.createRoot(document.body).render(
   <>
     <Header />
 
