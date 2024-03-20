@@ -1,11 +1,11 @@
 import React from 'react'
 import store from './store'
-import type { TCopy, TImage } from './types'
+import type { TCopyInfo, TImageInfo } from './types'
 
 type TPageState = {
   loading: boolean
-  data?: TCopy
-  images?: TImage[]
+  data?: TCopyInfo
+  images?: TImageInfo[]
   error?: string
 }
 

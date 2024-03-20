@@ -1,12 +1,13 @@
 import React from 'react'
-import type { TImage, TUpdateCallback } from '~/api/copy/types'
+import type { TImageInfo, TUpdateCallback } from '~/api/copy/types'
 import { RotateButton } from './ui/rotate'
+import { TableImage } from './ui/image'
 import { rotate } from '~/api/copy/rotate/rotate'
 import { message } from 'antd'
 
-export const ParseImages: React.FC<{ data: TImage[] }> = ({ data }) => {
+export const ParseImages: React.FC<{ data: TImageInfo[] }> = ({ data }) => {
   const headers = ['order', 'img_250', 'rotation', 'original_filename', 'id', 'uuid', 'created_at']
-  const [images, setImages] = React.useState<TImage[]>([])
+  const [images, setImages] = React.useState<TImageInfo[]>([])
   const [messageApi, contextHolder] = message.useMessage()
   const lock: HTMLDivElement[] = []
 
@@ -14,7 +15,7 @@ export const ParseImages: React.FC<{ data: TImage[] }> = ({ data }) => {
     setImages(data)
   }, [data])
 
-  const updateCallback: TUpdateCallback<TImage> = ({ data, error }) => {
+  const updateCallback: TUpdateCallback<TImageInfo> = ({ data, error }) => {
     // console.log({ data, error })
     if (error) {
       messageApi.open({
@@ -31,7 +32,7 @@ export const ParseImages: React.FC<{ data: TImage[] }> = ({ data }) => {
     }
   }
 
-  function tableCell(item: TImage, key: string) {
+  function tableCell(item: TImageInfo, key: string) {
     const [id, rotation] = [item.id, item.rotation]
     const onClick: React.MouseEventHandler<HTMLDivElement> = event => {
       const el = event.target as HTMLDivElement
@@ -46,7 +47,8 @@ export const ParseImages: React.FC<{ data: TImage[] }> = ({ data }) => {
 
     switch (key) {
       case 'img_250': {
-        return <div className={`table__img_${rotation}`} style={{ backgroundImage: `url(${item.img_250})` }}></div>
+        // return <div className={`table__img_${rotation}`} style={{ backgroundImage: `url(${item.img_250})` }}></div>
+        return <TableImage src={item.img_250} rotation={rotation} />
       }
       case 'rotation': {
         return (
@@ -61,7 +63,7 @@ export const ParseImages: React.FC<{ data: TImage[] }> = ({ data }) => {
         )
       }
       default: {
-        return item[key as keyof TImage]
+        return item[key as keyof TImageInfo]
       }
     }
   }

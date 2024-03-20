@@ -1,4 +1,4 @@
-export type TCopy = {
+export type TCopyInfo = {
   id: number
   item: number
   item_title: string
@@ -18,7 +18,7 @@ export type TCopy = {
   zip_preview: string | null
 }
 
-export type TImage = {
+export type TImageInfo = {
   id: number
   uuid: string
   copy: number

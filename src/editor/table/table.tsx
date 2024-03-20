@@ -1,14 +1,14 @@
 import React from 'react'
 import store from '~/api/copy/store'
 import { objectKeys } from '~/utils/types'
-import type { TCopy, TCopyStatus } from '~/api/copy/types'
+import type { TCopyInfo, TCopyStatus } from '~/api/copy/types'
 import { setCopyStatus } from '~/api/copy/status/status'
 import { message, Select } from 'antd'
 import { formatBytes } from '~/utils/format'
 
 import './styles.css'
 
-type TTableKey = Exclude<keyof TCopy, 'item' | 'item_id' | 'is_main' | 'images'>
+type TTableKey = Exclude<keyof TCopyInfo, 'item' | 'item_id' | 'is_main' | 'images'>
 type TTableView = Record<TTableKey, string>
 const tableView: TTableView = {
   item_title: 'Документ',
@@ -33,7 +33,7 @@ const isBlank = (value: unknown) => {
   return false
 }
 
-export const ParseTable: React.FC<{ data: TCopy }> = ({ data }) => {
+export const ParseTable: React.FC<{ data: TCopyInfo }> = ({ data }) => {
   const [messageApi, contextHolder] = message.useMessage()
   const [statusValues, setStatusValues] = React.useState<TCopyStatus[]>([])
 

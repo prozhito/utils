@@ -1,15 +1,15 @@
 import { API_URL, API_COPY, API_IMG, API_STATUS } from './constants'
-import type { TCopy, TImage, TCopyStatus, TCopyStatusResponse } from './types'
+import type { TCopyInfo, TImageInfo, TCopyStatus, TCopyStatusResponse } from './types'
 import { getData } from './get'
 
-type TUpdateCallback = ({ data, images, error }: { data: TCopy | null; images: TImage[]; error?: string }) => void
+type TUpdateCallback = ({ data, images, error }: { data: TCopyInfo | null; images: TImageInfo[]; error?: string }) => void
 
 class Store {
-  private _copy: Record<string, TCopy> = {}
-  private _image: Record<string, TImage> = {}
+  private _copy: Record<string, TCopyInfo> = {}
+  private _image: Record<string, TImageInfo> = {}
   private _statusValues: TCopyStatus[] = []
 
-  setCopy({ id, data }: { id: number; data: TCopy }) {
+  setCopy({ id, data }: { id: number; data: TCopyInfo }) {
     this._copy[id] = data
   }
 
@@ -29,14 +29,14 @@ class Store {
   }
 
   getCopy({ id, page }: { id?: number; page?: number }) {
-    return new Promise<TCopy>((resolve, reject) => {
+    return new Promise<TCopyInfo>((resolve, reject) => {
       if (id != undefined) {
         if (this._copy[id]) resolve(this._copy[id])
 
         let url = `${API_URL}${API_COPY}${id ?? ''}/`
         if (page !== undefined) url = `${url}?page=${page}`
         // console.log('Fetching copy: ', url)
-        getData<TCopy>(url, true).then(response => {
+        getData<TCopyInfo>(url, true).then(response => {
           if (response.data) {
             this._copy[id] = response.data
             resolve(this._copy[id])
@@ -46,12 +46,12 @@ class Store {
     })
   }
 
-  setImage({ id, data }: { id: number; data: TImage }) {
+  setImage({ id, data }: { id: number; data: TImageInfo }) {
     this._image[id] = data
   }
 
   getImage({ id }: { id?: number }) {
-    return new Promise<TImage>((resolve, reject) => {
+    return new Promise<TImageInfo>((resolve, reject) => {
       if (id != undefined) {
         if (this._image[id]) {
           resolve(this._image[id])
@@ -60,7 +60,7 @@ class Store {
 
         const url = `${API_URL}${API_IMG}${id}/`
         // console.log('Fetching image: ', url)
-        getData<TImage>(url, true).then(response => {
+        getData<TImageInfo>(url, true).then(response => {
           if (response.data) {
             this._image[id] = response.data
             resolve(this._image[id])
